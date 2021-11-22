@@ -1,0 +1,91 @@
+﻿@model IEnumerable<BusinessObject.Models.ProductObject>
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Products</h1><hr>
+<div>
+    <form asp-action="GetProducts" asp-controller="Product">
+        <div class="text-right form-group">
+            <input name="search" value="@ViewBag.Search">
+            <button type="submit" class="btn-primary">Search</button>
+        </div>
+        <div class="text-center form-group">
+            <label for="quantity">Quantity: </label>
+            <select name="quantity">
+                <option value="2" selected> All </option>
+                <option value="0"> Out of stock </option>
+                <option value="1"> Still in stock </option>
+            </select>
+            <label for="priceFrom">Price From: </label>
+            <input type="number" min="0" name="priceFrom" value="@ViewBag.From">
+            <label for="priceTo">To: </label>
+            <input type="number" min="0" name="priceTo" value="@ViewBag.To">
+        </div>
+    </form>
+</div>
+@if (TempData["Message"] != null)
+{
+    <p class="text-center alert alert-info">@TempData["Message"]</p>
+}
+@if (Model != null && Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Weight)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitsInStock)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Weight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitsInStock)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "UpdateProduct", "Product", new { ProductID = item.ProductId }) |
+                        @Html.ActionLink("Delete", "DeleteProduct", "Product", new { ProductID = item.ProductId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<p class="text-right">
+    <a asp-action="AddNewProduct" asp-controller="Product" class="btn btn-info">Add New Product +</a>
+</p>

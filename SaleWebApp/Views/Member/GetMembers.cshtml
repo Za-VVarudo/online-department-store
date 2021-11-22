@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BusinessObject.Models.MemberObject>
+
+@{
+    ViewData["Title"] = "GetMembers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Fstore's Members</h1>
+@if (TempData["Message"] != null)
+{
+    <p class="text-center alert alert-info">@TempData["Message"]</p>
+}
+@if (Model != null && Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MemberId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompanyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Country)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MemberId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Country)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditMemberInfo", new { MemberID = item.MemberId }) |
+                        @Html.ActionLink("Delete", "RemoveMember", new { MemberID = item.MemberId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<p class="text-right">
+    <a asp-action="AddNewMember" asp-controller="Member" class="btn btn-info">Add New Member +</a>
+</p>

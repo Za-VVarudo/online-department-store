@@ -1,0 +1,48 @@
+﻿@model BusinessObject.Models.OrderObject
+
+@{
+    ViewData["Title"] = "Create Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create Order</h1>
+<hr />
+@if (ViewBag.Message != null)
+{
+    <p class="text-center alert alert-info">@ViewBag.Message</p>
+}
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateOrder">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MemberId" class="control-label"></label>
+                <input asp-for="MemberId" class="form-control" required/>
+                <span asp-validation-for="MemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequiredDate" class="control-label"></label>
+                <input asp-for="RequiredDate" class="form-control" type="date" required/>
+                <span asp-validation-for="RequiredDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippedDate" class="control-label"></label>
+                <input asp-for="ShippedDate" class="form-control" type="date" required/>
+                <span asp-validation-for="ShippedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Freight" class="control-label"></label>
+                <input asp-for="Freight" class="form-control" required min="0"/>
+                <span asp-validation-for="Freight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="GetOrders" asp-controller="Order">Back to List</a>
+</div>
+

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BusinessObject.DailySaleStatisticResult>
+@{
+    ViewData["Title"] = "Statistic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var from = TempData["fromDate"] ?? "";
+    var to = TempData["toDate"]?? "";
+}
+<h1 class="text-center">Statistic</h1>
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+        <form asp-action="DailySaleStatistic" asp-controller="Statistic">
+            <div class="align-content-center">
+                <label for="From">From: </label>
+                <input type="date" name="From" value="@from.ToString()" class=""/>
+                <label for="To">To: </label>
+                <input type="date" name="To" value="@to.ToString()" class="" />
+                <button type="submit" name="submit" class="btn-info">Create Statistic</button>
+            </div>
+        </form>
+    </div><br>
+    <div class="row">
+        @if (Model != null && Model.Count() > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Total)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Date.ToString("MM/dd/yyyy")</td>
+                            <td>@item.Total.ToString("0.##")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

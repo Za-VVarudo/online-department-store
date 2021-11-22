@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <h1 class="card-header text-center">Login</h1>
+                <div class="card-body">
+                    <p class="text-danger text-center">@ViewBag.Message</p>
+                    <form asp-action="Login" asp-controller="Auth" method="post">
+                        <div>
+                            <label for="Email">Email:</label><br>
+                            <input type="text" name="Email" required class="form-control"/><br>
+                            <label for="Password">Password:</label><br>
+                            <input type="password" name="Password" required class="form-control"/><br><br>
+                            <button type="submit" name="action" class="form-control btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
